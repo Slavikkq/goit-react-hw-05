@@ -1,21 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navigation from "./components/Navigation";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import MoviesPage from "./pages/MoviesPage";
 import MovieDetailsPage from "./pages/MovieDetailsPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import Navigation from "./components/Navigation";
 
 export default function App() {
   return (
     <Router>
       <div>
         <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/movies" element={<MoviesPage />} />
-          <Route path="/movies/:movieId" element={<MovieDetailsPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/movies" component={MoviesPage} />
+          <Route path="/movies/:movieId" component={MovieDetailsPage} />
+          <Route component={NotFoundPage} />
+        </Switch>
       </div>
     </Router>
   );

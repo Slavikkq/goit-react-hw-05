@@ -5,7 +5,7 @@ export default function Navigation() {
     <nav>
       <ul>
         <li>
-          <NavLink to="/" exact>
+          <NavLink exact to="/">
             Home
           </NavLink>
         </li>

@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../api";
 
@@ -26,7 +27,6 @@ export default function MovieDetailsPage() {
     <div>
       <h1>{movieDetails.title}</h1>
       <p>{movieDetails.overview}</p>
-      {/* Display other movie details */}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+// MovieDetailsPage.js
 import { Suspense, useEffect, useRef, useState } from "react";
 import {
   Link,
@@ -9,10 +10,6 @@ import {
 import { getMovieById } from "../../services/api";
 import { Loader } from "../../components/Loader/Loader";
 import { FaArrowLeft } from "react-icons/fa6";
-
-const linkClass = ({ isActive }) => {
-  return clsx(css.link, isActive && css.isActive);
-};
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -41,7 +38,7 @@ const MovieDetailsPage = () => {
   return (
     <div>
       <Link to={goBack.current}>
-        <button className={css.btn}>
+        <button>
           <FaArrowLeft />
           Go back
         </button>
@@ -49,7 +46,7 @@ const MovieDetailsPage = () => {
       {isLoading && <Loader />}
       {error && <p>Something is wrong! Reload.</p>}
       {movie && (
-        <div className={css.div}>
+        <div>
           <img
             src={
               movie.poster_path
@@ -59,20 +56,18 @@ const MovieDetailsPage = () => {
             alt={movie.title || movie.original_title || "Default title"}
             width={300}
           />
-          <div className={css.divDetails}>
-            <h2 className={css.details}>
+          <div>
+            <h2>
               {movie.title || movie.original_title} (
               {movie.release_date.slice(0, 4)})
             </h2>
-            <p className={css.details}>
+            <p>
               User score: {Math.round(movie.vote_average * 10)}%
             </p>
-            <h3 className={css.details}>Overwiev</h3>
-            <p className={css.details}>{movie.overview}</p>
-            <h3 className={css.details}>Genres</h3>
-            <p className={css.details}>
-              {movie.genres.map((genre) => genre.name).join(" ")}
-            </p>
+            <h3>Overwiev</h3>
+            <p>{movie.overview}</p>
+            <h3>Genres</h3>
+            <p>{movie.genres.map((genre) => genre.name).join(" ")}</p>
           </div>
         </div>
       )}
@@ -80,14 +75,10 @@ const MovieDetailsPage = () => {
       <p>Additional information</p>
       <ul>
         <li>
-          <NavLink to="cast" className={linkClass}>
-            Cast
-          </NavLink>
+          <NavLink to="cast">Cast</NavLink>
         </li>
         <li>
-          <NavLink to="reviews" className={linkClass}>
-            Reviews
-          </NavLink>
+          <NavLink to="reviews">Reviews</NavLink>
         </li>
       </ul>
       <hr style={{ width: "100%" }} />

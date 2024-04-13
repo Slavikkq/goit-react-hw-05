@@ -1,3 +1,4 @@
+// MovieCast.js
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Loader } from "./Loader";
@@ -29,9 +30,9 @@ const MovieCast = () => {
       {isLoading && <Loader />}
       {error && <p>Something is wrong! Reload.</p>}
       {actor.length > 0 && (
-        <ul className={css.list}>
+        <ul>
           {actor.map(({ id, name, character, profile_path }) => (
-            <li key={id} className={css.item}>
+            <li key={id}>
               <img
                 src={
                   profile_path
@@ -42,10 +43,8 @@ const MovieCast = () => {
                 width={120}
               />
               <div>
-                <p className={css.p}>
-                  {name ? name : "No information available"}{" "}
-                </p>
-                <p>{character ? character : "No information available"} </p>
+                <p>{name ? name : "No information available"}</p>
+                <p>{character ? character : "No information available"}</p>
               </div>
             </li>
           ))}

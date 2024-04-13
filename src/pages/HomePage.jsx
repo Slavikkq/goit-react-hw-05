@@ -1,27 +1,35 @@
-import { useState, useEffect } from "react";
-import MovieList from "../components/MovieList";
-import { searchMovies } from "../api";
+import { useEffect, useState } from "react";
+import { getTrendingMovies } from "../services/api";
+import { Loader } from "../components/Loader/Loader";
+import MovieList from "../components/MovieList/MovieList";
 
-export default function HomePage() {
-  const [trendingMovies, setTrendingMovies] = useState([]);
+const HomePage = () => {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchTrendingMovies = async () => {
+    const fetchData = async () => {
+      setIsLoading(true);
       try {
-        const movies = await searchMovies("trending");
-        setTrendingMovies(movies);
+        const data = await getTrendingMovies();
+        setMovies(data);
       } catch (error) {
-        console.error("Error fetching trending movies:", error);
+        setError(error);
+      } finally {
+        setIsLoading(false);
       }
     };
-
-    fetchTrendingMovies();
+    fetchData();
   }, []);
-
   return (
-    <div>
-      <h1>Trending Movies</h1>
-      <MovieList movies={trendingMovies} />
-    </div>
+    <>
+      <h2>Trending movies today</h2>
+      {isLoading && <Loader />}
+      {error && <p>Something is wrong! Reload page, please.</p>}
+      {movies.length > 0 && <MovieList movies={movies} />}
+    </>
   );
-}
+};
+
+export default HomePage;

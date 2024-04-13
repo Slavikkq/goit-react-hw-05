@@ -1,22 +1,27 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import MoviesPage from "./pages/MoviesPage";
-import MovieDetailsPage from "./pages/MovieDetailsPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import Navigation from "./components/Navigation";
+import { Routes, Route } from "react-router-dom";
+import { Navigation } from "./components/Navigation";
+import { lazy } from "react";
+import MovieCast from "./components/MovieCast";
+import MovieReviews from "./components/MovieReviews";
+const HomePage = lazy(() => import("./pages/HomePage"));
+const MoviePage = lazy(() => import("./pages/MoviesPage"));
+const MovieDetailsPage = lazy(() => import("./pages/MovieDetailsPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 
-export default function App() {
+const App = () => {
   return (
-    <Router>
-      <div>
-        <Navigation />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/movies" component={MoviesPage} />
-          <Route path="/movies/:movieId" component={MovieDetailsPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </div>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Navigation />}>
+        <Route index element={<HomePage />} />
+        <Route path="/movies" element={<MoviePage />} />
+        <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+          <Route path="cast" element={<MovieCast />} />
+          <Route path="reviews" element={<MovieReviews />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
-}
+};
+
+export default App;

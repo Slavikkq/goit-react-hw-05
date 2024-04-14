@@ -30,7 +30,7 @@ const MovieCast = () => {
       {error && <p>Something is wrong! Reload.</p>}
       {actor.length > 0 && (
         <ul className={css.list}>
-          {actor.map(({ id, name, character, profile_path }) => (
+          {actor.map(({ id, name, character }) => (
             <li key={id} className={css.item}>
               <div>
                 <p>{name ? name : "No information available"} </p>

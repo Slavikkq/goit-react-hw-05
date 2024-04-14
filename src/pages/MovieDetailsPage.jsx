@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import { getMovieById } from "../../services/api";
 import { Loader } from "../../components/Loader/Loader";
-import { FaArrowLeft } from "react-icons/fa6";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -38,21 +37,14 @@ const MovieDetailsPage = () => {
   return (
     <div>
       <Link to={goBack.current}>
-        <button>
-          <FaArrowLeft />
-          Go back
-        </button>
+        <button>Go back</button>
       </Link>
       {isLoading && <Loader />}
       {error && <p>Something is wrong! Reload.</p>}
       {movie && (
         <div>
           <img
-            src={
-              movie.poster_path
-                ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                : unknown
-            }
+            src={movie.poster_path`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
             alt={movie.title || movie.original_title || "Default title"}
             width={300}
           />
@@ -61,9 +53,7 @@ const MovieDetailsPage = () => {
               {movie.title || movie.original_title} (
               {movie.release_date.slice(0, 4)})
             </h2>
-            <p>
-              User score: {Math.round(movie.vote_average * 10)}%
-            </p>
+            <p>User score: {Math.round(movie.vote_average * 10)}%</p>
             <h3>Overwiev</h3>
             <p>{movie.overview}</p>
             <h3>Genres</h3>

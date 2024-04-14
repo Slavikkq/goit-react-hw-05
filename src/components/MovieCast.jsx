@@ -32,15 +32,6 @@ const MovieCast = () => {
         <ul className={css.list}>
           {actor.map(({ id, name, character, profile_path }) => (
             <li key={id} className={css.item}>
-              <img
-                src={
-                  profile_path
-                    ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                    : unknown
-                }
-                alt={name}
-                width={120}
-              />
               <div>
                 <p className={css.p}>
                   {name ? name : "No information available"}{" "}

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Loader } from "./Loader";
-import { getCast } from "../api";
+import { getReview } from "../../services/api";
+import { Loader } from "../Loader/Loader";
 
-const MovieCast = () => {
+const MovieReviews = () => {
   const { movieId } = useParams();
-  const [actor, setActor] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,8 +13,8 @@ const MovieCast = () => {
     async function getData() {
       try {
         setIsLoading(true);
-        const data = await getCast(movieId);
-        setActor(data);
+        const data = await getReview(movieId);
+        setReviews(data);
       } catch (error) {
         setError(true);
       } finally {
@@ -27,33 +27,20 @@ const MovieCast = () => {
   return (
     <>
       {isLoading && <Loader />}
-      {error && <p>Something is wrong! Reload.</p>}
-      {actor.length > 0 && (
-        <ul className={css.list}>
-          {actor.map(({ id, name, character, profile_path }) => (
-            <li key={id} className={css.item}>
-              <img
-                src={
-                  profile_path
-                    ? `https://image.tmdb.org/t/p/w500/${profile_path}`
-                    : unknown
-                }
-                alt={name}
-                width={120}
-              />
-              <div>
-                <p className={css.p}>
-                  {name ? name : "No information available"}{" "}
-                </p>
-                <p>{character ? character : "No information available"} </p>
-              </div>
+      {error && <p>Something is wrong! Reload page, please.</p>}
+      {reviews.length > 0 && (
+        <ul>
+          {reviews.map(({ id, author, content }) => (
+            <li key={id}>
+              <h3>{author} </h3>
+              <p>{content} </p>
             </li>
           ))}
         </ul>
       )}
-      {!actor.length && <p>We don`t have nobody for this movie</p>}
+      {!reviews.length && <p>We don`t have any reviews for this movie</p>}
     </>
   );
 };
 
-export default MovieCast;
+export default MovieReviews;

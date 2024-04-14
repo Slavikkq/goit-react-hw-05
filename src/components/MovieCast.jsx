@@ -33,9 +33,7 @@ const MovieCast = () => {
           {actor.map(({ id, name, character, profile_path }) => (
             <li key={id} className={css.item}>
               <div>
-                <p className={css.p}>
-                  {name ? name : "No information available"}{" "}
-                </p>
+                <p>{name ? name : "No information available"} </p>
                 <p>{character ? character : "No information available"} </p>
               </div>
             </li>

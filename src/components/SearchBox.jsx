@@ -17,7 +17,7 @@ const SearchBox = ({ onHandlerSubmit }) => {
 
   return (
     <form onSubmit={handlerSubmit}>
-      <div className={css.searchBar}>
+      <div>
         {" "}
         <input
           type="text"

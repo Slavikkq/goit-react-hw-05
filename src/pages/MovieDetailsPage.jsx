@@ -7,8 +7,8 @@ import {
   useLocation,
   useParams,
 } from "react-router-dom";
-import { getMovieById } from "../../services/api";
-import { Loader } from "../../components/Loader/Loader";
+import { getMovieById } from "../api";
+import { Loader } from "../../components/Loader";
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
